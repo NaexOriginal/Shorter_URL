@@ -1,7 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { DashboardLayout } from "./components/DashboardLayout";
 import { ProtectedRoute, PublicOnlyRoute } from "./components/RouteGuards";
-import { DashboardPage } from "./pages/DashboardPage";
+import { CreateLinkPage } from "./pages/CreateLinkPage";
+import { LinksPage } from "./pages/LinksPage";
 import { LoginPage } from "./pages/LoginPage";
+import { OverviewPage } from "./pages/OverviewPage";
 import { RegisterPage } from "./pages/RegisterPage";
 
 function App() {
@@ -27,10 +30,14 @@ function App() {
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <DashboardPage />
+            <DashboardLayout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<OverviewPage />} />
+        <Route path="links" element={<LinksPage />} />
+        <Route path="create" element={<CreateLinkPage />} />
+      </Route>
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
   );
