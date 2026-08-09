@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { BACKEND_ORIGIN } from "../lib/config";
 import type { Link } from "../types/link";
 
@@ -38,6 +39,12 @@ export function LinkRow({ link }: { link: Link }) {
         >
           {copied ? "Copiado ✓" : "Copiar"}
         </button>
+        <RouterLink
+          to={`/dashboard/links/${link.short_code}`}
+          className="text-xs rounded-lg border border-slate-700 px-2.5 py-1.5 hover:bg-slate-800 transition-colors text-indigo-400 hover:text-indigo-300"
+        >
+          Analíticas →
+        </RouterLink>
       </div>
     </li>
   );

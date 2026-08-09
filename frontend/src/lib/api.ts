@@ -1,4 +1,5 @@
 import type { Token, User } from "../types/auth";
+import type { Click } from "../types/click";
 import type { Link } from "../types/link";
 
 export class ApiError extends Error {
@@ -64,6 +65,22 @@ export async function createLink(token: string, targetUrl: string): Promise<Link
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ target_url: targetUrl }),
+  });
+  if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
+  return response.json();
+}
+
+export async function fetchLink(token: string, shortCode: string): Promise<Link> {
+  const response = await fetch(`/api/links/${shortCode}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
+  return response.json();
+}
+
+export async function fetchClicks(token: string, shortCode: string): Promise<Click[]> {
+  const response = await fetch(`/api/links/${shortCode}/clicks`, {
+    headers: { Authorization: `Bearer ${token}` },
   });
   if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
   return response.json();
