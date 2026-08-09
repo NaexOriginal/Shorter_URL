@@ -58,14 +58,18 @@ export async function fetchLinks(token: string): Promise<Link[]> {
   return response.json();
 }
 
-export async function createLink(token: string, targetUrl: string): Promise<Link> {
+export async function createLink(
+  token: string,
+  targetUrl: string,
+  customSlug?: string
+): Promise<Link> {
   const response = await fetch("/api/links", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ target_url: targetUrl }),
+    body: JSON.stringify({ target_url: targetUrl, custom_slug: customSlug || undefined }),
   });
   if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
   return response.json();
