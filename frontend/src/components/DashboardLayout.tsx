@@ -140,8 +140,8 @@ export function DashboardLayout() {
         </aside>
       </div>
 
-      {/* Desktop sidebar, collapsible */}
-      <div className="hidden lg:block lg:relative lg:shrink-0">
+      {/* Desktop sidebar, collapsible, pinned to the viewport while main scrolls */}
+      <div className="hidden lg:block lg:sticky lg:top-0 lg:h-screen lg:shrink-0">
         <aside
           className={`h-full border-slate-800 bg-slate-950 flex flex-col overflow-hidden transition-[width] duration-200 ease-in-out ${
             isCollapsed ? "w-0" : "w-60 border-r"

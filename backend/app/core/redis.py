@@ -9,3 +9,7 @@ redis_client: redis.Redis = redis.from_url(
 
 def click_channel(link_id: int) -> str:
     return f"clicks:{link_id}"
+
+
+def user_click_channel(owner_id: int) -> str:
+    return f"user:{owner_id}:clicks"
