@@ -48,12 +48,12 @@ export function OverviewPage() {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4">
         <StatTile label="Links creados" value={formatNumber(links.length)} />
         <StatTile label="Clics totales" value={formatNumber(totalClicks)} />
       </div>
 
-      <div className="rounded-xl border border-white/10 bg-[#1a1a19] p-5">
+      <div className="rounded-xl border border-white/10 bg-[#1a1a19] p-4 sm:p-5">
         <h2 className="text-sm font-medium text-slate-300 mb-4">Links con más clics</h2>
         <TopLinksChart data={topLinks} />
       </div>
