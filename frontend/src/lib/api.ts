@@ -1,3 +1,4 @@
+import type { AnalyticsOverview } from "../types/analytics";
 import type { Token, User } from "../types/auth";
 import type { Click } from "../types/click";
 import type { Link } from "../types/link";
@@ -80,6 +81,14 @@ export async function fetchLink(token: string, shortCode: string): Promise<Link>
 
 export async function fetchClicks(token: string, shortCode: string): Promise<Click[]> {
   const response = await fetch(`/api/links/${shortCode}/clicks`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
+  return response.json();
+}
+
+export async function fetchAnalyticsOverview(token: string): Promise<AnalyticsOverview> {
+  const response = await fetch("/api/analytics/overview", {
     headers: { Authorization: `Bearer ${token}` },
   });
   if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
