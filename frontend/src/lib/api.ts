@@ -1,4 +1,5 @@
 import type { Token, User } from "../types/auth";
+import type { Link } from "../types/link";
 
 export class ApiError extends Error {
   status: number;
@@ -42,6 +43,27 @@ export async function login(email: string, password: string): Promise<Token> {
 export async function fetchCurrentUser(token: string): Promise<User> {
   const response = await fetch("/api/auth/me", {
     headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
+  return response.json();
+}
+
+export async function fetchLinks(token: string): Promise<Link[]> {
+  const response = await fetch("/api/links", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
+  return response.json();
+}
+
+export async function createLink(token: string, targetUrl: string): Promise<Link> {
+  const response = await fetch("/api/links", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ target_url: targetUrl }),
   });
   if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
   return response.json();
