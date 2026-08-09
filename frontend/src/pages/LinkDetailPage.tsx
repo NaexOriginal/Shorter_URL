@@ -75,7 +75,7 @@ export function LinkDetailPage() {
         ← Mis links
       </RouterLink>
 
-      <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+      <div className="rounded-xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="min-w-0">
             <a
@@ -111,21 +111,21 @@ export function LinkDetailPage() {
         </p>
       ) : (
         <>
-          <div className="rounded-xl border border-white/10 bg-[#1a1a19] p-5">
+          <div className="rounded-xl border border-white/10 bg-[#1a1a19] p-4 sm:p-5">
             <h2 className="text-sm font-medium text-slate-300 mb-4">Clics por día</h2>
             <ClicksOverTimeChart data={timeSeriesData} />
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2">
-            <div className="rounded-xl border border-white/10 bg-[#1a1a19] p-5">
+            <div className="rounded-xl border border-white/10 bg-[#1a1a19] p-4 sm:p-5">
               <h2 className="text-sm font-medium text-slate-300 mb-4">Dispositivo</h2>
               <CategoryBreakdownChart data={deviceData} />
             </div>
-            <div className="rounded-xl border border-white/10 bg-[#1a1a19] p-5">
+            <div className="rounded-xl border border-white/10 bg-[#1a1a19] p-4 sm:p-5">
               <h2 className="text-sm font-medium text-slate-300 mb-4">Navegador</h2>
               <CategoryBreakdownChart data={browserData} />
             </div>
-            <div className="rounded-xl border border-white/10 bg-[#1a1a19] p-5 sm:col-span-2">
+            <div className="rounded-xl border border-white/10 bg-[#1a1a19] p-4 sm:p-5 sm:col-span-2">
               <h2 className="text-sm font-medium text-slate-300 mb-4">País</h2>
               <CategoryBreakdownChart data={countryData} />
             </div>
