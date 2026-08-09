@@ -29,6 +29,11 @@ docker-compose.yml   Postgres + Redis para desarrollo local
    uv sync
    uv run uvicorn app.main:app --reload
    ```
+   Si tu terminal no reconoce `uv` (no está en el PATH), activá el entorno virtual que crea `uv sync` y corré uvicorn directo:
+   ```
+   .venv\Scripts\activate
+   uvicorn app.main:app --reload
+   ```
    API disponible en `http://localhost:8000` (healthcheck en `/health`).
 3. Frontend:
    ```
