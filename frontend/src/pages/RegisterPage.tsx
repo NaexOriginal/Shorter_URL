@@ -4,6 +4,8 @@ import { AuthLayout } from "../components/AuthLayout";
 import { useAuth } from "../context/useAuth";
 import { ApiError } from "../lib/api";
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export function RegisterPage() {
   const { register } = useAuth();
   const navigate = useNavigate();
@@ -13,10 +15,20 @@ export function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const isEmailValid = EMAIL_PATTERN.test(email);
+
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setError(null);
 
+    if (!email) {
+      setError("Ingresá tu correo electrónico");
+      return;
+    }
+    if (!isEmailValid) {
+      setError("Ingresá un correo electrónico válido");
+      return;
+    }
     if (password.length < 8) {
       setError("La contraseña debe tener al menos 8 caracteres");
       return;
@@ -43,15 +55,16 @@ export function RegisterPage() {
 
   return (
     <AuthLayout title="Crear cuenta" subtitle="Empezá a acortar y medir tus links">
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} noValidate className="space-y-4">
         <div>
           <label htmlFor="email" className="block text-sm text-slate-300 mb-1">
             Email
           </label>
           <input
             id="email"
-            type="email"
-            required
+            type="text"
+            inputMode="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
