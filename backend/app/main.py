@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import links, redirect
+from app.api import auth, links, redirect
 from app.core.config import settings
 
 app = FastAPI(title=settings.app_name)
@@ -20,6 +20,7 @@ async def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
+app.include_router(auth.router)
 app.include_router(links.router)
 # Catch-all short-code redirect: must be included last so it never shadows
 # /health or /api/* routes registered above.

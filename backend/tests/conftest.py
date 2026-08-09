@@ -31,3 +31,18 @@ async def client() -> AsyncGenerator[AsyncClient]:
 
     app.dependency_overrides.clear()
     await engine.dispose()
+
+
+@pytest.fixture
+async def auth_client(client: AsyncClient) -> AsyncClient:
+    """A client pre-registered, logged in, and carrying a Bearer token."""
+    await client.post(
+        "/api/auth/register", json={"email": "owner@example.com", "password": "supersecret"}
+    )
+    login = await client.post(
+        "/api/auth/login",
+        data={"username": "owner@example.com", "password": "supersecret"},
+    )
+    token = login.json()["access_token"]
+    client.headers["Authorization"] = f"Bearer {token}"
+    return client
