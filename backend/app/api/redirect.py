@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.db import get_db
 from app.core.geoip import lookup_ip
-from app.core.redis import click_channel, redis_client
+from app.core.redis import click_channel, redis_client, user_click_channel
 from app.core.user_agent import parse_user_agent
 from app.models.click import Click
 from app.models.link import Link
@@ -28,6 +28,7 @@ def _client_ip(request: Request) -> str | None:
 async def _publish_click(link: Link, click: Click) -> None:
     payload = {
         "id": click.id,
+        "short_code": link.short_code,
         "clicked_at": click.clicked_at.isoformat(),
         "country": click.country,
         "city": click.city,
@@ -36,8 +37,11 @@ async def _publish_click(link: Link, click: Click) -> None:
         "os": click.os,
         "click_count": link.click_count,
     }
+    message = json.dumps(payload)
     try:
-        await redis_client.publish(click_channel(link.id), json.dumps(payload))
+        await redis_client.publish(click_channel(link.id), message)
+        if link.owner_id is not None:
+            await redis_client.publish(user_click_channel(link.owner_id), message)
     except Exception:
         # Realtime push is best-effort: a Redis hiccup shouldn't break redirects.
         logger.warning("Failed to publish click event to Redis", exc_info=True)

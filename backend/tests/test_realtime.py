@@ -42,3 +42,15 @@ def test_ws_rejects_other_owners_link(ws_client: TestClient) -> None:
             f"/ws/links/{link['short_code']}?token={intruder_token}"
         ):
             pass
+
+
+def test_ws_me_rejects_missing_token(ws_client: TestClient) -> None:
+    with pytest.raises(WebSocketDisconnect):
+        with ws_client.websocket_connect("/ws/me"):
+            pass
+
+
+def test_ws_me_rejects_invalid_token(ws_client: TestClient) -> None:
+    with pytest.raises(WebSocketDisconnect):
+        with ws_client.websocket_connect("/ws/me?token=not-a-real-token"):
+            pass
