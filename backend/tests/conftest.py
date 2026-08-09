@@ -29,6 +29,9 @@ async def client() -> AsyncGenerator[AsyncClient]:
     app.dependency_overrides[get_db] = override_get_db
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # Exposed so tests can write rows directly (e.g. backdated clicks)
+        # that aren't reachable through the API surface.
+        ac.session_factory = session_factory
         yield ac
 
     app.dependency_overrides.clear()
