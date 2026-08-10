@@ -19,7 +19,7 @@ export function CreateLinkPage() {
     };
 
     return (
-      <div className="space-y-4 max-w-xl">
+      <div className="space-y-4">
         <h1 className="text-lg font-semibold">¡Link creado!</h1>
         <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 flex flex-col items-center gap-4 text-center">
           <a
@@ -62,7 +62,7 @@ export function CreateLinkPage() {
   }
 
   return (
-    <div className="space-y-4 max-w-xl">
+    <div className="space-y-4">
       <h1 className="text-lg font-semibold">Crear link</h1>
       <CreateLinkForm onCreated={setCreated} />
     </div>
