@@ -67,3 +67,44 @@ async def test_redirect_follows_and_counts_click(auth_client: AsyncClient) -> No
 async def test_redirect_unknown_code_returns_404(client: AsyncClient) -> None:
     response = await client.get("/does-not-exist")
     assert response.status_code == 404
+
+
+async def test_create_link_with_custom_slug(auth_client: AsyncClient) -> None:
+    response = await auth_client.post(
+        "/api/links", json={"target_url": "https://example.com/x", "custom_slug": "mi-marca"}
+    )
+    assert response.status_code == 201
+    assert response.json()["short_code"] == "mi-marca"
+
+
+async def test_create_link_rejects_duplicate_slug(auth_client: AsyncClient) -> None:
+    await auth_client.post(
+        "/api/links", json={"target_url": "https://example.com/a", "custom_slug": "taken"}
+    )
+    response = await auth_client.post(
+        "/api/links", json={"target_url": "https://example.com/b", "custom_slug": "taken"}
+    )
+    assert response.status_code == 409
+
+
+async def test_create_link_rejects_reserved_slug(auth_client: AsyncClient) -> None:
+    response = await auth_client.post(
+        "/api/links", json={"target_url": "https://example.com/x", "custom_slug": "api"}
+    )
+    assert response.status_code == 422
+
+
+async def test_create_link_rejects_invalid_slug_characters(auth_client: AsyncClient) -> None:
+    response = await auth_client.post(
+        "/api/links", json={"target_url": "https://example.com/x", "custom_slug": "no spaces!"}
+    )
+    assert response.status_code == 422
+
+
+async def test_create_link_rejects_slug_taken_by_random_code(auth_client: AsyncClient) -> None:
+    existing = await _create_link(auth_client, "random")
+    response = await auth_client.post(
+        "/api/links",
+        json={"target_url": "https://example.com/y", "custom_slug": existing["short_code"]},
+    )
+    assert response.status_code == 409
