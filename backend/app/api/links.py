@@ -38,11 +38,15 @@ async def create_link(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ) -> Link:
-    link = Link(
-        short_code=await _unique_short_code(db),
-        target_url=payload.target_url,
-        owner_id=current_user.id,
-    )
+    if payload.custom_slug:
+        taken = await db.scalar(select(Link.id).where(Link.short_code == payload.custom_slug))
+        if taken:
+            raise HTTPException(status_code=409, detail="That alias is already taken")
+        short_code = payload.custom_slug
+    else:
+        short_code = await _unique_short_code(db)
+
+    link = Link(short_code=short_code, target_url=payload.target_url, owner_id=current_user.id)
     db.add(link)
     await db.commit()
     await db.refresh(link)

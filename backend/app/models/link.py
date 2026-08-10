@@ -15,7 +15,7 @@ class Link(Base):
     __tablename__ = "links"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    short_code: Mapped[str] = mapped_column(String(16), unique=True, index=True)
+    short_code: Mapped[str] = mapped_column(String(32), unique=True, index=True)
     target_url: Mapped[str] = mapped_column(String(2048))
     click_count: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     owner_id: Mapped[int | None] = mapped_column(
