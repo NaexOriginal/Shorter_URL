@@ -1,16 +1,15 @@
-import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { useToast } from "../context/useToast";
 import { BACKEND_ORIGIN } from "../lib/config";
 import type { Link } from "../types/link";
 
 export function LinkRow({ link }: { link: Link }) {
-  const [copied, setCopied] = useState(false);
+  const { showToast } = useToast();
   const shortUrl = `${BACKEND_ORIGIN}/${link.short_code}`;
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(shortUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    showToast("Enlace copiado al portapapeles");
   };
 
   return (
@@ -37,7 +36,7 @@ export function LinkRow({ link }: { link: Link }) {
           onClick={handleCopy}
           className="text-xs rounded-lg border border-slate-700 px-2.5 py-1.5 hover:bg-slate-800 transition-colors"
         >
-          {copied ? "Copiado ✓" : "Copiar"}
+          Copiar
         </button>
         <RouterLink
           to={`/dashboard/links/${link.short_code}`}
