@@ -5,7 +5,7 @@ Acortador de URLs con dashboard de analíticas en tiempo real: clics en vivo por
 [![Backend](https://github.com/NaexOriginal/Shorter_URL/actions/workflows/backend.yml/badge.svg)](https://github.com/NaexOriginal/Shorter_URL/actions/workflows/backend.yml)
 [![Frontend](https://github.com/NaexOriginal/Shorter_URL/actions/workflows/frontend.yml/badge.svg)](https://github.com/NaexOriginal/Shorter_URL/actions/workflows/frontend.yml)
 
-## Funcionalidades
+## ✨ Funcionalidades
 
 - **Cuentas de usuario**: registro, login con JWT, y ajustes de cuenta (cambiar email, cambiar contraseña, eliminar cuenta).
 - **Links**: creación con código corto aleatorio o alias personalizado, listado con buscador, redirección con tracking de clics.
@@ -15,7 +15,7 @@ Acortador de URLs con dashboard de analíticas en tiempo real: clics en vivo por
 - **Dashboard**: resumen con métricas de los últimos 30 días, detalle de clics por link (por día, dispositivo, navegador, país), sidebar colapsable y responsive.
 - **UX**: notificaciones toast, estados vacíos con call-to-action, buscador client-side.
 
-## Stack
+## 🛠️ Stack
 
 | | |
 |---|---|
@@ -24,7 +24,7 @@ Acortador de URLs con dashboard de analíticas en tiempo real: clics en vivo por
 | **Infra local** | Docker Compose (Postgres + Redis). |
 | **CI** | GitHub Actions (lint + tests en cada push/PR, ver badges arriba). |
 
-## Estructura
+## 📂 Estructura
 
 ```
 backend/
@@ -46,7 +46,7 @@ frontend/
 docker-compose.yml  Postgres + Redis para desarrollo local
 ```
 
-## Cómo levantar el proyecto
+## 🚀 Cómo levantar el proyecto
 
 ### Requisitos
 
@@ -91,7 +91,7 @@ bun run dev
 
 App disponible en `http://localhost:5173`.
 
-## Variables de entorno (backend)
+## 🔐 Variables de entorno (backend)
 
 | Variable | Default | Descripción |
 |---|---|---|
@@ -105,7 +105,7 @@ App disponible en `http://localhost:5173`.
 
 El frontend solo necesita `VITE_BACKEND_ORIGIN` (ver `frontend/.env.example`), usado para armar la URL corta que se muestra en el dashboard.
 
-## API
+## 📡 API
 
 Todas las rutas bajo `/api` requieren `Authorization: Bearer <token>` salvo registro/login. Docs completas e interactivas en `/docs` (Swagger) una vez el backend está corriendo.
 
@@ -126,7 +126,7 @@ Todas las rutas bajo `/api` requieren `Authorization: Bearer <token>` salvo regi
 | `WS` | `/ws/links/{short_code}?token=` | Feed en vivo de clics de un link |
 | `WS` | `/ws/me?token=` | Feed en vivo de todos los links del usuario |
 
-## Tests y lint
+## ✅ Tests y lint
 
 ```
 # Backend
@@ -142,7 +142,7 @@ bun run build
 
 Estos son los mismos checks que corre CI en cada push/PR (ver `.github/workflows/`).
 
-## Flujo de trabajo con git
+## 🌿 Flujo de trabajo con git
 
 - `main`: siempre estable, refleja lo que "funciona". Se actualiza solo en milestones, vía PR desde `develop`.
 - `develop`: rama de integración donde se fusionan las features ya probadas.
@@ -153,7 +153,7 @@ Antes de fusionar cualquier `feature/*` a `develop`:
 2. Se confirma que la funcionalidad fue probada manualmente y funciona como se espera.
 3. Se fusiona con `git merge --no-ff` y se pushea `develop`.
 
-## Notas
+## 📝 Notas
 
 - El archivo GeoLite2 (`.mmdb`) no se versiona (ver `.gitignore`). Se descarga con una cuenta gratuita de MaxMind.
 - El proyecto no está desplegado públicamente: el backend necesita un proceso persistente (WebSockets + subscriber de Redis), lo cual no encaja en el modelo serverless de free tiers como Vercel/Netlify Functions. Correría en algo como Render o Fly.io; el frontend sí es un SPA estático desplegable gratis en cualquiera de los dos.
