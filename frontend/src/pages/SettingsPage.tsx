@@ -42,7 +42,7 @@ function EmailSection() {
         <h2 className="text-sm font-medium text-slate-200">Email</h2>
         <p className="text-xs text-slate-500 mt-0.5">Actual: {user?.email}</p>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-3">
+      <form onSubmit={handleSubmit} className="space-y-3 max-w-sm">
         <div>
           <label htmlFor="newEmail" className="block text-sm text-slate-300 mb-1">
             Nuevo email
@@ -115,7 +115,7 @@ function PasswordSection() {
   return (
     <section className="rounded-xl border border-slate-800 bg-slate-900 p-4 sm:p-5 space-y-3">
       <h2 className="text-sm font-medium text-slate-200">Contraseña</h2>
-      <form onSubmit={handleSubmit} className="space-y-3">
+      <form onSubmit={handleSubmit} className="space-y-3 max-w-sm">
         <div>
           <label htmlFor="currentPassword" className="block text-sm text-slate-300 mb-1">
             Contraseña actual
@@ -195,7 +195,7 @@ function DeleteAccountSection() {
           Eliminar mi cuenta
         </button>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-3 max-w-sm">
           <div>
             <label htmlFor="deletePassword" className="block text-sm text-slate-300 mb-1">
               Confirmá tu contraseña para continuar
@@ -239,7 +239,7 @@ function DeleteAccountSection() {
 
 export function SettingsPage() {
   return (
-    <div className="space-y-4 max-w-xl">
+    <div className="space-y-4">
       <h1 className="text-lg font-semibold">Ajustes</h1>
       <EmailSection />
       <PasswordSection />
