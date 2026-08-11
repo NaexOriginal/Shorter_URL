@@ -42,32 +42,34 @@ function EmailSection() {
         <h2 className="text-sm font-medium text-slate-200">Email</h2>
         <p className="text-xs text-slate-500 mt-0.5">Actual: {user?.email}</p>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-3 max-w-sm">
-        <div>
-          <label htmlFor="newEmail" className="block text-sm text-slate-300 mb-1">
-            Nuevo email
-          </label>
-          <input
-            id="newEmail"
-            type="email"
-            required
-            value={newEmail}
-            onChange={(e) => setNewEmail(e.target.value)}
-            className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
-        </div>
-        <div>
-          <label htmlFor="emailPassword" className="block text-sm text-slate-300 mb-1">
-            Contraseña actual
-          </label>
-          <input
-            id="emailPassword"
-            type="password"
-            required
-            value={currentPassword}
-            onChange={(e) => setCurrentPassword(e.target.value)}
-            className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div>
+            <label htmlFor="newEmail" className="block text-sm text-slate-300 mb-1">
+              Nuevo email
+            </label>
+            <input
+              id="newEmail"
+              type="email"
+              required
+              value={newEmail}
+              onChange={(e) => setNewEmail(e.target.value)}
+              className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="emailPassword" className="block text-sm text-slate-300 mb-1">
+              Contraseña actual
+            </label>
+            <input
+              id="emailPassword"
+              type="password"
+              required
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
         </div>
         {error && <p className="text-sm text-red-400">{error}</p>}
         <button
@@ -115,32 +117,34 @@ function PasswordSection() {
   return (
     <section className="rounded-xl border border-slate-800 bg-slate-900 p-4 sm:p-5 space-y-3">
       <h2 className="text-sm font-medium text-slate-200">Contraseña</h2>
-      <form onSubmit={handleSubmit} className="space-y-3 max-w-sm">
-        <div>
-          <label htmlFor="currentPassword" className="block text-sm text-slate-300 mb-1">
-            Contraseña actual
-          </label>
-          <input
-            id="currentPassword"
-            type="password"
-            required
-            value={currentPassword}
-            onChange={(e) => setCurrentPassword(e.target.value)}
-            className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
-        </div>
-        <div>
-          <label htmlFor="newPassword" className="block text-sm text-slate-300 mb-1">
-            Nueva contraseña
-          </label>
-          <input
-            id="newPassword"
-            type="password"
-            required
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div>
+            <label htmlFor="currentPassword" className="block text-sm text-slate-300 mb-1">
+              Contraseña actual
+            </label>
+            <input
+              id="currentPassword"
+              type="password"
+              required
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="newPassword" className="block text-sm text-slate-300 mb-1">
+              Nueva contraseña
+            </label>
+            <input
+              id="newPassword"
+              type="password"
+              required
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
         </div>
         {error && <p className="text-sm text-red-400">{error}</p>}
         <button
@@ -195,8 +199,8 @@ function DeleteAccountSection() {
           Eliminar mi cuenta
         </button>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-3 max-w-sm">
-          <div>
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div className="max-w-xs">
             <label htmlFor="deletePassword" className="block text-sm text-slate-300 mb-1">
               Confirmá tu contraseña para continuar
             </label>
