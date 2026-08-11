@@ -98,3 +98,48 @@ export async function fetchAnalyticsOverview(token: string): Promise<AnalyticsOv
   if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
   return response.json();
 }
+
+export async function updateEmail(
+  token: string,
+  currentPassword: string,
+  newEmail: string
+): Promise<Token> {
+  const response = await fetch("/api/auth/me/email", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ current_password: currentPassword, new_email: newEmail }),
+  });
+  if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
+  return response.json();
+}
+
+export async function updatePassword(
+  token: string,
+  currentPassword: string,
+  newPassword: string
+): Promise<void> {
+  const response = await fetch("/api/auth/me/password", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }),
+  });
+  if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
+}
+
+export async function deleteAccount(token: string, currentPassword: string): Promise<void> {
+  const response = await fetch("/api/auth/me/delete", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ current_password: currentPassword }),
+  });
+  if (!response.ok) throw new ApiError(response.status, await parseErrorDetail(response));
+}
