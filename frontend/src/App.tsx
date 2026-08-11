@@ -7,6 +7,7 @@ import { LinksPage } from "./pages/LinksPage";
 import { LoginPage } from "./pages/LoginPage";
 import { OverviewPage } from "./pages/OverviewPage";
 import { RegisterPage } from "./pages/RegisterPage";
+import { SettingsPage } from "./pages/SettingsPage";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="links" element={<LinksPage />} />
         <Route path="links/:code" element={<LinkDetailPage />} />
         <Route path="create" element={<CreateLinkPage />} />
+        <Route path="settings" element={<SettingsPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
