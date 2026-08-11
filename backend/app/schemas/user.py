@@ -19,3 +19,17 @@ class UserRead(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str = "bearer"
+
+
+class EmailUpdateRequest(BaseModel):
+    current_password: str
+    new_email: EmailStr
+
+
+class PasswordUpdateRequest(BaseModel):
+    current_password: str
+    new_password: str = Field(min_length=8, max_length=72)
+
+
+class AccountDeleteRequest(BaseModel):
+    current_password: str
