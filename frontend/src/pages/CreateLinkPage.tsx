@@ -2,20 +2,20 @@ import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { CreateLinkForm } from "../components/CreateLinkForm";
 import { LinkQrCode } from "../components/LinkQrCode";
+import { useToast } from "../context/useToast";
 import { BACKEND_ORIGIN } from "../lib/config";
 import type { Link } from "../types/link";
 
 export function CreateLinkPage() {
   const [created, setCreated] = useState<Link | null>(null);
-  const [copied, setCopied] = useState(false);
+  const { showToast } = useToast();
 
   if (created) {
     const shortUrl = `${BACKEND_ORIGIN}/${created.short_code}`;
 
     const handleCopy = async () => {
       await navigator.clipboard.writeText(shortUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      showToast("Enlace copiado al portapapeles");
     };
 
     return (
@@ -41,7 +41,7 @@ export function CreateLinkPage() {
               onClick={handleCopy}
               className="text-sm rounded-lg border border-slate-700 px-3 py-1.5 hover:bg-slate-800 transition-colors"
             >
-              {copied ? "Copiado ✓" : "Copiar link"}
+              Copiar link
             </button>
             <button
               onClick={() => setCreated(null)}
