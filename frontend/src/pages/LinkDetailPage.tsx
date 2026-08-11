@@ -106,9 +106,26 @@ export function LinkDetailPage() {
       </div>
 
       {clicks.length === 0 ? (
-        <p className="text-slate-500 text-sm text-center py-16">
-          Todavía no hay clics para este link. Compartilo para empezar a ver datos.
-        </p>
+        <div className="flex flex-col items-center gap-3 text-center py-16">
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="text-slate-700"
+          >
+            <path
+              d="M12 3v4m0 10v4m9-9h-4M7 12H3m14.36-6.36-2.83 2.83M9.47 14.53l-2.83 2.83m0-10.72 2.83 2.83m7.06 7.06 2.83 2.83"
+              strokeLinecap="round"
+            />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          <p className="text-slate-500 text-sm">
+            Todavía no hay clics para este link. Compartilo para empezar a ver datos.
+          </p>
+        </div>
       ) : (
         <>
           <div className="rounded-xl border border-white/10 bg-[#1a1a19] p-4 sm:p-5">
