@@ -20,4 +20,6 @@ class User(Base):
         DateTime(timezone=True), server_default=func.now()
     )
 
-    links: Mapped[list["Link"]] = relationship(back_populates="owner")
+    links: Mapped[list["Link"]] = relationship(
+        back_populates="owner", cascade="all, delete-orphan"
+    )

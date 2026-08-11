@@ -6,6 +6,7 @@ const navItems = [
   { to: "/dashboard", label: "Resumen", end: true },
   { to: "/dashboard/links", label: "Mis links", end: false },
   { to: "/dashboard/create", label: "Crear link", end: false },
+  { to: "/dashboard/settings", label: "Ajustes", end: false },
 ];
 
 const SIDEBAR_COLLAPSED_KEY = "sidebar_collapsed";
